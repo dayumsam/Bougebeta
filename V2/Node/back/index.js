@@ -31,16 +31,19 @@ app.get('*', (req,res) => {
  res.sendFile(path.join(__dirname, 'build/index.html'));
 });
 
-app.post('/coordinates',function(req,res){
+app.post('/coordinates', async (req,res, next) => {
   console.log(JSON.stringify(req.body));
-  var stringify_coordinates = JSON.stringify(req.body) 
-  var newEntry = db.run('INSERT INTO PolyLines (coordinates) VALUES(?)', [stringify_coordinates], function(err) {
-    if (err) {
-      return console.log(err.message);
-    }
-    // get the last insert id
-    console.log(`A row has been inserted with rowid ${this.lastID}`);
-  });
+  try {
+    var stringify_coordinates = JSON.stringify(req.body);
+    db.run('INSERT INTO PolyLines (coordinates) VALUES(?)', [stringify_coordinates])
+          .then((smt) => {
+            // get the last insert id
+            console.log(`A row has been inserted with rowid ${smt.lastID}`);
+            res.sendStatus(200);
+          })
+  } catch(err) {
+    next(err)
+  }
 });
 
 // On app start
