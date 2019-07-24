@@ -85,4 +85,6 @@ Check more commands to check Postgres database in Heroku in [this guide](https:/
 
 ### More about Heroku + Node.js + Postgres   
 
-To have more details of the process you can head to the [Getting Started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) from Heroku and [this comprehensive tutorial](https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database).  
+To have more details of the process you can head to the [Getting Started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) from Heroku and [this comprehensive tutorial](https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database).
+
+Finally a [good resource to work with Node and Postgres](https://node-postgres.com/).    
