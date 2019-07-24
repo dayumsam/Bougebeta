@@ -27,6 +27,16 @@ app.get('/coordinates', async (req, res, next) => {
   }
 });
 
+app.get('/polygonID', async (req, res, next) => {
+  try {
+    console.log("Fetching id");
+    const id = await db.all('SELECT id FROM PolyLines ORDER BY ID DESC LIMIT 1'); // <=
+    res.send(id);
+  } catch (err) {   
+    next(err);
+  }
+});
+
 app.get('*', (req,res) => {
  res.sendFile(path.join(__dirname, 'build/index.html'));
 });

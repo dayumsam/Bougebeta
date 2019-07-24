@@ -1,37 +1,74 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset='utf-8' />
+  <head>
+    <meta charset="utf-8" />
     <title>Bougebeta</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
 
-    <link rel="shortcut icon" type="image/png" href="/Icons/favicon/favicon.png" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/Icons/favicon/favicon.png"
+    />
 
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>   
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      #startButton {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        top: 90%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        outline: none;
+      }
+
+      button:focus {
+        border: none;
+      }
+      
     </style>
+  </head>
 
-</head>
+  <body>
+    <div>
+      <div id="startTrack">
+        <button id="startButton" onclick="buttonClick()">
+          <img src="startButton.png" id="buttonImage" style="width:75px;height:75px;" />
+        </button>
+      </div>
+      <div id="map"></div>
+    </div>
 
-<body>
-    <div id='map'></div>
     <script src="3Dmaps.js"></script>
-
-</body>
-
+  </body>
 </html>
