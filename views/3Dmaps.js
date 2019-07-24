@@ -142,7 +142,7 @@ map.on("load", function getPolygons() {
                 type: "Feature",
                 properties: {},
                 geometry: {
-                  type: "LineString",
+                  type: "Polygon",
                   coordinates: lineCoordinatesRecieveParsed
                 }
               }
