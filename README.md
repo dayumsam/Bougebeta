@@ -1,13 +1,17 @@
 # Bougebeta
+
 ## Requirements
+
 - node (>=7.10)
 - npm (>=4)
 - Postgres (>=9)
 
 ## Setup Postgres Locally
+
 [Follow instructions to install Postgres in your local setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
 ### Create database and table
+
 Log in local Postgres by running in your terminal
 ```
 psql
@@ -32,29 +36,39 @@ table <your_table_name>;
 *Note: No sophisticated migration system for now. Just roughly running the needed sql queries manually.*
 
 ## Setup Node.js app
+
 Run the following in the root directory to install app dependencies
 
 ```
 npm install
 ```
 
-Create an .env file in your local machine specifying a variable pointing to your local database url string:
+Create a file called .env in the root of your project. Add the following line to the .env file you just created specifying a variable pointing to your local database url string:
 ```
 //.env
 DATABASE_URL='postgres://localhost:5432/<your_database_name>'
 ```
+If your database has a user and password set the URL should look like this:
+`postgres://<user>:<password>localhost:5432/<your_database_name>`
+
+You can run the app by typing:
+```
+npm start
+```
 
 ## Deploy in Heroku
+
 To deploy your app in [Heroku](https://www.heroku.com/) you need to be have an account created.
 
 Once you have the account make sure to [install the Heroku cli](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
 
 ### Create the app
-Navigate to the root of the project and type the following to create your app:
+
+Navigate to the root of the project and type the following in the terminal to create your app:
 ```
 heroku create <app_name>
 ```
-You then will be able to access it from this URL `https://<app_name>.herokuapp.com`
+You then will be able to access it from this URL `https://<app_name>.herokuapp.com` once the app is deployed.
 
 Deploy your code to sync Heroku with the content of your repo by running:
 ```
@@ -66,15 +80,15 @@ Open the app in the browser:
 heroku open
 ```
 
-
 ### Set Postgres in Heroku
-Now add an 'add-on' to have a Postgres database running along your Heroku app by running:
+
+Now add an 'add-on' to have a Postgres database running along your Heroku app by typing in your terminal:
 ```
 heroku addons:create heroku-postgresql:hobby-dev
 ```
-This will auto-magically create a database for you. The database URL string will be set to the environment variable `DATABASE_URL` on a .env filed created by Heroku. Your app will use such .env file once it is deployed.
+This will auto-magically create a database for you. The database URL string will be set to the environment variable `DATABASE_URL` on a .env file created by Heroku in the deployed server. Your app will use such .env file once it is deployed.
 
-Finally create the necessary database tables in the Heroku Postrges database. To do so first log in to the database by running:
+Finally create the necessary database tables in the Heroku Postgres database. To do so first log in to the database by running:
 ```
 heroku pg:psql
 ```
