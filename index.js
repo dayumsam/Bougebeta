@@ -38,7 +38,7 @@ app.post('/coordinates', (req,res) => {
   console.log(JSON.stringify(req.body));
   console.log("Inserting coordinates");
   var stringify_coordinates = JSON.stringify(req.body);
-  pool.query('INSERT INTO PolyLines (sahkjdhajksdh) VALUES($1) RETURNING id', [],
+  pool.query('INSERT INTO PolyLines (coordinates) VALUES($1) RETURNING id', [stringify_coordinates],
   (error, result) => {
       if (error) {
         console.log(error.toString())
