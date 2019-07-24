@@ -1,7 +1,14 @@
+require('dotenv').config()
 const express = require('express');
-const db = require('sqlite');
+
+const { Pool, Client } = require('pg')
 const Promise = require('bluebird');
 const path = require('path');
+
+const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/bougebeta'
+const pool = new Pool({
+  connectionString: connectionString
+})
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,49 +27,41 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/coordinates', async (req, res, next) => {
   try {
     console.log("Fetching coordinates");
-    const coordinates = await db.all('SELECT * FROM PolyLines'); // <=
-    res.send(coordinates);
+    const { rows } = await pool.query('SELECT * FROM PolyLines'); // <=
+    res.send(rows);
   } catch (err) {
     next(err);
   }
+});
+
+app.post('/coordinates', (req,res) => {
+  console.log(JSON.stringify(req.body));
+  console.log("Inserting coordinates");
+  var stringify_coordinates = JSON.stringify(req.body);
+  pool.query('INSERT INTO PolyLines (sahkjdhajksdh) VALUES($1) RETURNING id', [],
+  (error, result) => {
+      if (error) {
+        console.log(error.toString())
+        res.status(500).send(`An error occurred while inserting the data.`)
+    } else {
+        res.status(201).send(`Coordinates added with ID: ${result.rows[0].id}`)
+    }
+  })
 });
 
 app.get('/polygonID', async (req, res, next) => {
   try {
     console.log("Fetching id");
-    const id = await db.all('SELECT id FROM PolyLines ORDER BY ID DESC LIMIT 1'); // <=
-    res.send(id);
+    const { rows } = await pool.query('SELECT id FROM PolyLines ORDER BY ID DESC LIMIT 1'); // <=
+    res.send(rows);
   } catch (err) {
     next(err);
   }
 });
 
+
 app.get('*', (req,res) => {
- res.sendFile(path.join(__dirname, 'views/index.html'));
+  res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.post('/coordinates', async (req,res, next) => {
-  console.log(JSON.stringify(req.body));
-  try {
-    var stringify_coordinates = JSON.stringify(req.body);
-    db.run('INSERT INTO PolyLines (coordinates) VALUES(?)', [stringify_coordinates])
-          .then((smt) => {
-            // get the last insert id
-            console.log(`A row has been inserted with rowid ${smt.lastID}`);
-            res.sendStatus(200);
-          })
-  } catch(err) {
-    next(err)
-  }
-});
-
-// On app start
-Promise.resolve()
-  // First, try to open the database
-  .then(() => db.open('./database.sqlite', { Promise }))      // <=
-  // Update db schema to the latest version using SQL-based migrations
-  .then(() => db.migrate({ force: 'last' }))                  // <=
-  // Display error message if something went wrong
-  .catch((err) => console.error(err.stack))
-  // Finally, launch the Node.js app
-.finally(() => app.listen(port));
+app.listen(port);

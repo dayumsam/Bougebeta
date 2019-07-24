@@ -3,7 +3,7 @@
 --------------------------------------------------------------------------------
 
 CREATE TABLE PolyLines (
-  id   INTEGER PRIMARY KEY,
+  id   SERIAL PRIMARY KEY,
   coordinates TEXT NOT NULL
 );
 
