@@ -4,11 +4,10 @@
 - npm (>=4)
 - Postgres (>=9)
 
-## Setup Postgres
-### Local
+## Setup Postgres Locally
 [Follow instructions to install Postgres in your local setup](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)
 
-#### Create database and table
+### Create database and table
 Log in local Postgres by running in your terminal
 ```
 psql
@@ -57,8 +56,16 @@ heroku create <app_name>
 ```
 You then will be able to access it from this URL `https://<app_name>.herokuapp.com`
 
-To sync Heroku with the content of your repo run:
-`git push heroku master`
+Deploy your code to sync Heroku with the content of your repo by running:
+```
+git push heroku master
+```
+
+Open the app in the browser:
+```
+heroku open
+```
+
 
 ### Set Postgres in Heroku
 Now add an 'add-on' to have a Postgres database running along your Heroku app by running:
@@ -72,10 +79,10 @@ Finally create the necessary database tables in the Heroku Postrges database. To
 heroku pg:psql
 ```
 
-Once logged copy paste in the terminal the create table query or queries.
+Once logged copy paste in the terminal the create table query or queries as you previously did to create them in your local database.
 
 Check more commands to check Postgres database in Heroku in [this guide](https://devcenter.heroku.com/articles/heroku-postgresql#using-the-cli)
 
-#### More about Heroku + Node.js + Postgres   
+### More about Heroku + Node.js + Postgres   
 
 To have more details of the process you can head to the [Getting Started with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) from Heroku and [this comprehensive tutorial](https://devcenter.heroku.com/articles/getting-started-with-nodejs#provision-a-database).  
